@@ -7,13 +7,14 @@ part 'network.g.dart';
 @immutable
 @JsonSerializable()
 class Network extends Equatable {
-  Network(this.name);
+  Network(this.id, this.name);
 
   factory Network.fromJson(Map<String, dynamic> json) =>
       _$NetworkFromJson(json);
 
+  final String id;
   final String name;
 
   @override
-  List<Object> get props => [name];
+  List<Object> get props => [id, name];
 }

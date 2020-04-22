@@ -13,6 +13,7 @@ class NetworkSearchScreen extends StatelessWidget {
     networkSearchBloc(context).add(InitEvent());
 
     return BlocBuilder<NetworkSearchBloc, NetworkSearchState>(
+      condition: (oldState, newState) => newState != newState,
       builder: (bloc, state) {
         List<Network> networkList = [];
 

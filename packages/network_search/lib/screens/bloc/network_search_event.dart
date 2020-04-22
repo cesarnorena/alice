@@ -35,9 +35,9 @@ class TextChangedEvent extends NetworkSearchEvent {
     NetworkSearchState oldState,
     NetworkSearchBloc bloc,
   }) async* {
+    final filter = removeDiacritics(_text.toLowerCase());
     final filteredList = bloc.networkList.where((e) {
-      final name = e.name.toLowerCase();
-      final filter = _text.toLowerCase();
+      final name = removeDiacritics(e.name.toLowerCase());
       return name.contains(filter);
     }).toList();
     yield LoadedState(filteredList);
