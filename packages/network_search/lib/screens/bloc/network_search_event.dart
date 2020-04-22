@@ -9,3 +9,17 @@ abstract class NetworkSearchEvent {
     NetworkSearchBloc bloc,
   });
 }
+
+class InitEvent extends NetworkSearchEvent {
+  const InitEvent();
+
+  @override
+  Stream<NetworkSearchState> applyAsync({
+    NetworkSearchState oldState,
+    NetworkSearchBloc bloc,
+  }) async* {
+    yield LoadingState();
+    final networkList = await bloc.getNetworkList.execute();
+    yield LoadedState(networkList);
+  }
+}

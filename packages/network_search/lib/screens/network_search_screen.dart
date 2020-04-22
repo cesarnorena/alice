@@ -1,29 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../model/entities/network.dart';
 import 'bloc/network_search_bloc.dart';
+import 'network_list_widget.dart';
 
-class NetworkSearchScreen extends StatefulWidget {
+class NetworkSearchScreen extends StatelessWidget {
   const NetworkSearchScreen({Key key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
-    return _NetworkSearchState();
-  }
-}
-
-class _NetworkSearchState extends State<NetworkSearchScreen> {
-  List<String> _networkList = [
-    'First element',
-    'First element',
-    'First element',
-    'First element',
-  ];
-
-  @override
   Widget build(BuildContext context) {
+    BlocProvider.of<NetworkSearchBloc>(context).add(InitEvent());
+
     return BlocBuilder<NetworkSearchBloc, NetworkSearchState>(
       builder: (bloc, state) {
+        List<Network> networkList = [];
+
+        if (state is LoadedState) {
+          networkList = state.networkList;
+        }
+
         return Scaffold(
           body: SafeArea(
             child: Column(
@@ -33,26 +29,7 @@ class _NetworkSearchState extends State<NetworkSearchScreen> {
                   child: TextField(),
                 ),
                 Expanded(
-                  child: ListView.separated(
-                    itemCount: _networkList.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 8,
-                        ),
-                        child: Text(
-                          _networkList[index],
-                        ),
-                      );
-                    },
-                    separatorBuilder: (context, index) => Divider(
-                      color: Colors.grey,
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
-                  ),
+                  child: NetworkListWidget(networkList),
                 )
               ],
             ),
