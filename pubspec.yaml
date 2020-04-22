@@ -12,8 +12,6 @@ dependencies:
   cupertino_icons: ^0.1.2
   network_search:
     path: packages/network_search
-  flutter_bloc: ^2.1.1
-
 
 dev_dependencies:
   flutter_test:
