@@ -20,6 +20,26 @@ class InitEvent extends NetworkSearchEvent {
   }) async* {
     yield LoadingState();
     final networkList = await bloc.getNetworkList.execute();
+    bloc.networkList = networkList;
     yield LoadedState(networkList);
+  }
+}
+
+class TextChangedEvent extends NetworkSearchEvent {
+  const TextChangedEvent(this._text);
+
+  final String _text;
+
+  @override
+  Stream<NetworkSearchState> applyAsync({
+    NetworkSearchState oldState,
+    NetworkSearchBloc bloc,
+  }) async* {
+    final filteredList = bloc.networkList.where((e) {
+      final name = e.name.toLowerCase();
+      final filter = _text.toLowerCase();
+      return name.contains(filter);
+    }).toList();
+    yield LoadedState(filteredList);
   }
 }

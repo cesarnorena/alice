@@ -10,7 +10,7 @@ class NetworkSearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<NetworkSearchBloc>(context).add(InitEvent());
+    networkSearchBloc(context).add(InitEvent());
 
     return BlocBuilder<NetworkSearchBloc, NetworkSearchState>(
       builder: (bloc, state) {
@@ -26,7 +26,12 @@ class NetworkSearchScreen extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.all(8),
-                  child: TextField(),
+                  child: TextField(
+                    onChanged: (text) {
+                      networkSearchBloc(context).add(TextChangedEvent(text));
+                    },
+                    enabled: state is InitialState ? false : true,
+                  ),
                 ),
                 Expanded(
                   child: NetworkListWidget(networkList),
@@ -37,5 +42,9 @@ class NetworkSearchScreen extends StatelessWidget {
         );
       },
     );
+  }
+
+  NetworkSearchBloc networkSearchBloc(BuildContext context) {
+    return BlocProvider.of<NetworkSearchBloc>(context);
   }
 }

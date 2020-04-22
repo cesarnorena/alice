@@ -12,6 +12,7 @@ class NetworkSearchBloc extends Bloc<NetworkSearchEvent, NetworkSearchState> {
   NetworkSearchBloc(this.getNetworkList);
 
   final GetNetworkList getNetworkList;
+  List<Network> networkList = [];
 
   @override
   NetworkSearchState get initialState => InitialState();
