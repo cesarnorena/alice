@@ -7,8 +7,7 @@ import 'package:network_search/model/repositories/network_repository.dart';
 import 'package:network_search/screens/bloc/network_search_bloc.dart';
 
 main() {
-  NetworkRepository networkRepository;
-  GetNetworkList getNetworkList;
+  NetworkRepository repository;
   NetworkSearchBloc bloc;
 
   final networkList = [
@@ -19,8 +18,8 @@ main() {
   ];
 
   setUp(() {
-    networkRepository = MockNetworkRepository();
-    getNetworkList = GetNetworkList(networkRepository);
+    repository = MockNetworkRepository();
+    final getNetworkList = GetNetworkList(repository);
     bloc = NetworkSearchBloc(getNetworkList);
   });
 
@@ -35,7 +34,7 @@ main() {
   group('Loading network list', () {
     test('Loading network list success', () async {
       when(
-        networkRepository.getNetworkList(),
+        repository.getNetworkList(),
       ).thenAnswer((_) async => networkList);
 
       final expected = [
@@ -51,7 +50,7 @@ main() {
 
     test('Loading network list with error', () async {
       when(
-        networkRepository.getNetworkList(),
+        repository.getNetworkList(),
       ).thenAnswer((_) async => null);
 
       final expected = [
@@ -69,7 +68,7 @@ main() {
   group('Filtering network list', () {
     test('Fitering with match', () async {
       when(
-        networkRepository.getNetworkList(),
+        repository.getNetworkList(),
       ).thenAnswer((_) async => networkList);
 
       final expected = [
@@ -87,7 +86,7 @@ main() {
 
     test('Fitering without match', () async {
       when(
-        networkRepository.getNetworkList(),
+        repository.getNetworkList(),
       ).thenAnswer((_) async => networkList);
 
       final expected = [
