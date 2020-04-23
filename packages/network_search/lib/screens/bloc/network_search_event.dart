@@ -19,9 +19,14 @@ class InitEvent extends NetworkSearchEvent {
     NetworkSearchBloc bloc,
   }) async* {
     yield LoadingState();
-    final networkList = await bloc.getNetworkList.execute();
-    bloc.networkList = networkList;
-    yield LoadedState(networkList);
+
+    try {
+      final networkList = await bloc.getNetworkList.execute();
+      bloc.networkList = networkList;
+      yield LoadedState(networkList);
+    } catch (error) {
+      yield LoadErrorState();
+    }
   }
 }
 

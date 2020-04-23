@@ -1,6 +1,5 @@
 import 'package:network_search/model/entities/network.dart';
-
-import 'repositories/network_repository.dart';
+import 'package:network_search/model/repositories/network_repository.dart';
 
 class GetNetworkList {
   GetNetworkList(this._repository);

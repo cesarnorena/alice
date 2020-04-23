@@ -17,10 +17,12 @@ class LoadingState extends NetworkSearchState {
 }
 
 class LoadedState extends NetworkSearchState {
-  LoadedState(this.networkList);
+  LoadedState(this.networkList) : assert(networkList != null);
 
   final List<Network> networkList;
 
   @override
   List<Object> get props => [networkList];
 }
+
+class LoadErrorState extends NetworkSearchState {}

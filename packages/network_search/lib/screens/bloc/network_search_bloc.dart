@@ -2,9 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:diacritic/diacritic.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-
-import '../../model/entities/network.dart';
-import '../../model/get_network_list.dart';
+import 'package:network_search/model/entities/network.dart';
+import 'package:network_search/model/get_network_list.dart';
 
 part 'network_search_event.dart';
 part 'network_search_state.dart';
